@@ -59,4 +59,5 @@ export function logToFile(message: string) {
     const timestamp = new Date().toISOString();
     const logMessage = `${timestamp} | ${message}\n`;
     fs.appendFileSync(logFilePath, logMessage, { encoding: 'utf8' });
+    console.log(logMessage)
 }

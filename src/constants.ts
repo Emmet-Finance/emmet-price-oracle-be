@@ -1,4 +1,5 @@
 
+import { TChainName } from "./types"
 import {readENV} from "./utils"
 
 export const RPCs = {
@@ -6,8 +7,10 @@ export const RPCs = {
     bscTestnet: readENV("BSC_TESTNET_RPC"),
 }
 
+export const supportedChains: TChainName[] = Object.keys(RPCs) as TChainName[];
+
 export const AddressBooks = {
-    amoy: '',
+    amoy: '0x825614461b92baf13aDE3124793579f6e10EcC55',
     bscTestnet: '0x3564336Ad556295A368EEa2b2CA1a7D3f43B4029'
 }
 

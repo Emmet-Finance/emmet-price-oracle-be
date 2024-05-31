@@ -47,14 +47,7 @@ export async function getEmmetAddress(contractName: contractNames, chain: TChain
     const params = [{
         to: AddressBooks[chain],
         data: `${selector}${offset}${length}${name}`
-    }, "latest"]
+    }, "latest"];
     const address: string = await sendJsonRpcRequest(rpcURL, "eth_call", params);
     return address.replace('000000000000000000000000', '');
 }
-
-getEmmetAddress('EmmetData', 'bscTestnet')
-.then(data => {
-    console.log(data)
-}).catch(e => {
-    console.error(e)
-})

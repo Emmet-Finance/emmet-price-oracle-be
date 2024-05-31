@@ -1,23 +1,23 @@
 import { ethers } from 'ethers';
 import cron from 'node-cron';
 import {getTokenPrice, readENV, logToFile} from "./utils";
-import {RPCs, TOKENS} from "./constants";
+import {RPCs, TOKENS, supportedChains} from "./constants";
 import { contractABI } from './ABI';
+import { getEmmetAddress } from './getEmmetAddress';
 
 async function main() {
 
     for (const token of TOKENS){
 
         const price: number = await getTokenPrice(token.symbol) as number;
-        console.log(token.symbol, price)
 
-        for(const feed of token.priceFeeds){
-            console.log(feed)
-            const rpc: string = RPCs[feed.chain as keyof typeof RPCs];
+        for(const chain of supportedChains){
+            const rpc: string = RPCs[chain];
             const provider = new ethers.JsonRpcProvider(rpc);
             const signer = new ethers.Wallet(readENV("SK"), provider);
+            const feedAddress: string = await getEmmetAddress(`TON/USD`, chain);
             const contract = new ethers.Contract(
-                feed.address,
+                feedAddress,
                 contractABI,
                 signer
             );
@@ -25,9 +25,8 @@ async function main() {
             const answeredInRound = 1;
             const tx = await contract.updateTokenPrice(price, answeredInRound);
             await tx.wait();
-            const message: string = `${token.symbol}, ${price}, ${feed.chain}`;
+            const message: string = `${token.symbol}, ${price}, ${chain}`;
             logToFile(message);
-            console.log(message)
         }
         
     }
