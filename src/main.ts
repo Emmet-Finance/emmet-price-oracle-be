@@ -11,19 +11,20 @@ async function main() {
 
         const price: number = await getTokenPrice(token.symbol) as number;
 
-        for(const chain of supportedChains){
+        for(const priceFeed of token.priceFeeds){
+            const chain = priceFeed.chain as keyof typeof RPCs;
             const rpc: string = RPCs[chain];
             const provider = new ethers.JsonRpcProvider(rpc);
             const signer = new ethers.Wallet(readENV("SK"), provider);
-            const feedAddress: string = await getEmmetAddress(`TON/USD`, chain);
+            const feedAddress: string = await getEmmetAddress(priceFeed.name, chain);
+            console.log("feedAddress:", feedAddress, priceFeed.name, chain)
             const contract = new ethers.Contract(
                 feedAddress,
                 contractABI,
                 signer
             );
 
-            const answeredInRound = 1;
-            const tx = await contract.updateTokenPrice(price, answeredInRound);
+            const tx = await contract.updateTokenPrice(price, Math.round(Math.random() * 6));
             await tx.wait();
             const message: string = `${token.symbol}, ${price}, ${chain}`;
             logToFile(message);
