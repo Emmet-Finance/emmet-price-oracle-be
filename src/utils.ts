@@ -48,8 +48,10 @@ export async function getTokenPrice(symbol: string): Promise<number> {
 
     const reply: ApiResponse = await fetchData(CMC_URL);
 
+    // Convert to 14 decimals
     const price: number = reply.data[symbol][0].quote.USD.price * 1e14;
 
+    // Remove fractions & return
     return Math.round(price);
 
 }

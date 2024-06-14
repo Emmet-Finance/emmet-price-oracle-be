@@ -31,6 +31,7 @@ export type contractNames =
     | "BNB/USD" // price feed
     | "MATIC/USD" // Price Feed
     | "EmmetMultisig"
+    | "GrabCoin/USD" // Price Feed
 
 export const TOKENS = [
     {
@@ -53,6 +54,15 @@ export const TOKENS = [
                 chain: "sepolia",
                 name: "MATIC/USD" as contractNames
             },
+        ]
+    },
+    {
+        symbol: "GC",
+        priceFeeds: [
+            {
+                chain: "sepolia",
+                name: "GrabCoin/USD" as contractNames
+            }
         ]
     }
 ];
