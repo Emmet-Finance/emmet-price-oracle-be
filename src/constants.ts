@@ -8,6 +8,8 @@ export const RPCs = {
     sepolia: readENV("SEPOLIA_RPC"),
 }
 
+export const evmSK:string = readENV("SK");
+
 export const supportedChains: TChainName[] = Object.keys(RPCs) as TChainName[];
 
 export const AddressBooks = {
