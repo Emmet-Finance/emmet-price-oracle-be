@@ -14,13 +14,20 @@ async function main() {
         // Chains get generated once
         const CHAINS: { [key: TChainName | string]: TChainWithSigner } = {
             amoy: evmChain('amoy'),
-            sepolia: evmChain('sepolia')
+            sepolia: evmChain('sepolia'),
+            berachainbartio: evmChain('berachainbartio')
         }
 
 
         for (const token of TOKENS) {
 
-            const price: number = await getTokenPrice(token.symbol) as number;
+            let price: number;
+
+            if (token.symbol == 'BERA') {
+                price = await getTokenPrice('ETH') as number;
+            } else {
+                price = await getTokenPrice(token.symbol) as number;
+            }
 
             // Regular loop
             for (const priceFeed of token.priceFeeds) {
@@ -33,7 +40,7 @@ async function main() {
                     chain.signer
                 );
 
-                const tx = await contract.updateTokenPrice(price, Math.round(Math.random() * 6) + 1);
+                const tx = await contract.updateTokenPrice(BigInt(price), Math.round(Math.random() * 6) + 2);
                 await tx.wait();
 
                 logToFile(`${token.symbol}, ${price}, ${chain.name}`);
