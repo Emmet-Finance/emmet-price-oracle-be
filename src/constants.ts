@@ -14,9 +14,9 @@ export const evmSK:string = readENV("SK");
 export const supportedChains: TChainName[] = Object.keys(RPCs) as TChainName[];
 
 export const AddressBooks = {
-    amoy: '0xEA844fAF9a240Ac9911c1bd2204cd1536f7859b6',
+    amoy: '0x8d948925A0CB920c965C3296Eb4aef31EfE32ce9', // '0xEA844fAF9a240Ac9911c1bd2204cd1536f7859b6'
     berachainbartio: '0x6b30f76CecE9F92D27f0e9Ad78312E77709E74A5',
-    sepolia: '0x0F416Ea0661BfD7Ffb5b79259Bd98Bd4496a5558'
+    sepolia: '0x8b87FE2b3f3D9816432b34D5A6a30B1330594082' // '0x0F416Ea0661BfD7Ffb5b79259Bd98Bd4496a5558'
 }
 
 export type contractNames = 
