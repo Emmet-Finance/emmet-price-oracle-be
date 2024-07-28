@@ -23,9 +23,11 @@ async function main() {
 
             let price: number;
 
+            // Dealing with exceptions
             if (token.symbol == 'BERA') {
                 price = await getTokenPrice('ETH') as number;
             } else {
+                // CMC Supported tokens
                 price = await getTokenPrice(token.symbol) as number;
             }
 
