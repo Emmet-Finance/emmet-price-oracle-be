@@ -62,7 +62,8 @@ async function main() {
         await tx.wait();
         logToFile(`$CAVI, ${caviPrice}, sepolia`);
 
-    } catch (error) {
+    } catch (error:{message:string}|any) {
+        console.log(error.message)
         await sleep(6000);
         main()
     }
