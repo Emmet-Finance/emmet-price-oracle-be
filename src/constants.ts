@@ -39,23 +39,7 @@ export type contractNames =
     | "GrabCoin/USD" // Price Feed
 
 export const TOKENS = [
-    {
-        symbol: "TON",
-        priceFeeds: [
-            {
-                chain: "amoy",
-                name: "TON/USD" as contractNames
-            },
-            {
-                chain: "sepolia",
-                name: "TON/USD" as contractNames
-            },
-            {
-                chain: "berachainbartio",
-                name: "TON/USD" as contractNames
-            }
-        ]
-    },
+    
     {
         symbol: "MATIC",
         priceFeeds: [
@@ -93,6 +77,23 @@ export const TOKENS = [
                 chain: "berachainbartio",
                 name: "ETH/USD" as contractNames
             },
+        ]
+    },
+    {
+        symbol: "TON",
+        priceFeeds: [
+            {
+                chain: "amoy",
+                name: "TON/USD" as contractNames
+            },
+            {
+                chain: "sepolia",
+                name: "TON/USD" as contractNames
+            },
+            {
+                chain: "berachainbartio",
+                name: "TON/USD" as contractNames
+            }
         ]
     },
     {
