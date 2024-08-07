@@ -1,11 +1,12 @@
 import { ethers } from 'ethers';
 import cron from 'node-cron';
-import { getTokenPrice, logToFile, sleep } from "./utils";
-import { TOKENS } from "./constants";
+import { logToFile, sleep } from "./utils";
+import { TChainLinkToken, TOKENS } from "./constants";
 import { contractABI } from './ABI';
 import { getEmmetAddress } from './getEmmetAddress';
 import { TChainWithSigner, evmChain } from './chains';
 import { TChainName } from './types';
+import { getChainLinkPrice } from './getChainLinkPrice';
 
 async function main() {
 
@@ -18,18 +19,28 @@ async function main() {
             berachainbartio: evmChain('berachainbartio')
         }
 
-
         for (const token of TOKENS) {
 
             let price: number;
 
+            console.log('token', token)
+
             // Dealing with exceptions
             if (token.symbol == 'BERA') {
-                price = await getTokenPrice('ETH') as number;
+                // price = await getTokenPrice('ETH') as number;
+                price = await getChainLinkPrice('ETH');
+            } else if(token.symbol == 'TON'){
+                price = 5.45 * 10 ** 14;
+            }
+            else if(token.symbol == 'GC'){
+                price = 1 * 10 ** 14;
             } else {
                 // CMC Supported tokens
-                price = await getTokenPrice(token.symbol) as number;
+                // price = await getTokenPrice(token.symbol) as number;
+                price = await getChainLinkPrice(token.symbol as TChainLinkToken);
             }
+
+            console.log('price:', price)
 
             // Regular loop
             for (const priceFeed of token.priceFeeds) {

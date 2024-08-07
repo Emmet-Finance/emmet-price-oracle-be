@@ -38,23 +38,23 @@ export async function fetchData(url: string): Promise<ApiResponse> {
     }
 }
 
-export async function getTokenPrice(symbol: string): Promise<number> {
+// export async function getTokenPrice(symbol: string): Promise<number> {
 
-    const apiKey: string = readENV("API_KEY");
-    const url_part_one: string = readENV("URL_PART_ONE");
-    const url_key: string = readENV("URL_KEY")
+//     const apiKey: string = readENV("API_KEY");
+//     const url_part_one: string = readENV("URL_PART_ONE");
+//     const url_key: string = readENV("URL_KEY")
 
-    const CMC_URL: string = `${url_part_one}${symbol}${url_key}${apiKey}`;
+//     const CMC_URL: string = `${url_part_one}${symbol}${url_key}${apiKey}`;
 
-    const reply: ApiResponse = await fetchData(CMC_URL);
+//     const reply: ApiResponse = await fetchData(CMC_URL);
 
-    // Convert to 14 decimals
-    const price: number = reply.data[symbol][0].quote.USD.price * 1e14;
+//     // Convert to 14 decimals
+//     const price: number = reply.data[symbol][0].quote.USD.price * 1e14;
 
-    // Remove fractions & return
-    return Math.round(price);
+//     // Remove fractions & return
+//     return Math.round(price);
 
-}
+// }
 
 export function logToFile(message: string) {
     const logFilePath = path.join(__dirname, 'price_update_log.txt');
