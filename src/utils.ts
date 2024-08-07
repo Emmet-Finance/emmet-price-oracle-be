@@ -63,3 +63,7 @@ export function logToFile(message: string) {
     fs.appendFileSync(logFilePath, logMessage, { encoding: 'utf8' });
     console.log(logMessage)
 }
+
+export function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

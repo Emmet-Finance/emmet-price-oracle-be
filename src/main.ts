@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import cron from 'node-cron';
-import { getTokenPrice, logToFile } from "./utils";
+import { getTokenPrice, logToFile, sleep } from "./utils";
 import { TOKENS } from "./constants";
 import { contractABI } from './ABI';
 import { getEmmetAddress } from './getEmmetAddress';
@@ -47,6 +47,7 @@ async function main() {
 
                 logToFile(`${token.symbol}, ${price}, ${chain.name}`);
             }
+            await sleep(6000);
         }
 
         // Irregular updates
@@ -62,6 +63,7 @@ async function main() {
         logToFile(`$CAVI, ${caviPrice}, sepolia`);
 
     } catch (error) {
+        await sleep(6000);
         main()
     }
 
