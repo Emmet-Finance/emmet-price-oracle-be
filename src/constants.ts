@@ -54,6 +54,15 @@ export const TOKENS = [
         ]
     },
     {
+        symbol: "ETH",
+        priceFeeds: [
+            {
+                chain: "berachainbartio",
+                name: "ETH/USD" as contractNames
+            },
+        ]
+    },
+    {
         symbol: "BERA",
         priceFeeds: [
             {
@@ -68,15 +77,6 @@ export const TOKENS = [
                 chain: "sepolia",
                 name: "BERA/USD" as contractNames
             }
-        ]
-    },
-    {
-        symbol: "ETH",
-        priceFeeds: [
-            {
-                chain: "berachainbartio",
-                name: "ETH/USD" as contractNames
-            },
         ]
     },
     {
