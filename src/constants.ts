@@ -20,6 +20,7 @@ export const AddressBooks = {
 }
 
 export type contractNames =
+    //  CONTRACTS
     "GasFees"
     | "EmmetTokenVault"
     | "EmmetData"
@@ -29,14 +30,17 @@ export type contractNames =
     | "LiquidityPoolHelper"
     | "EmmetBridge"
     | "AddressStorageHelper"
+    | "EmmetMultisig"
+    // TOKENS
     | "WTON"        // Wrapped Token
     | "EMMET"       // Token
+    // PRICE FEEDS
     | "TON/USD"     // price feed
     | "BNB/USD"     // price feed
     | "MATIC/USD"   // Price Feed
     | "BERA/USD"    // Price Feed
-    | "EmmetMultisig"
     | "GrabCoin/USD" // Price Feed
+    ;
 
 export const TOKENS = [
     
