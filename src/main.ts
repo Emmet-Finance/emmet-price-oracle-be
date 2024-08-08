@@ -29,10 +29,10 @@ async function main() {
             if (token.symbol == 'BERA') {
                 // price = await getTokenPrice('ETH') as number;
                 price = await getChainLinkPrice('ETH');
-            } else if(token.symbol == 'TON'){
+            } else if (token.symbol == 'TON') {
                 price = 5.45 * 10 ** 14;
             }
-            else if(token.symbol == 'GC'){
+            else if (token.symbol == 'GC') {
                 price = 1 * 10 ** 14;
             } else {
                 // CMC Supported tokens
@@ -44,21 +44,30 @@ async function main() {
 
             // Regular loop
             for (const priceFeed of token.priceFeeds) {
-                const chain = CHAINS[priceFeed.chain as TChainName];
-                const feedAddress: string = await getEmmetAddress(priceFeed.name, chain.name as TChainName);
-                console.log("feedAddress:", feedAddress, priceFeed.name, chain.name)
-                const contract = new ethers.Contract(
-                    feedAddress,
-                    contractABI,
-                    chain.signer
-                );
 
-                const tx = await contract.updateTokenPrice(BigInt(price), Math.round(Math.random() * 6) + 2);
-                await tx.wait();
+                try {
 
-                logToFile(`${token.symbol}, ${price}, ${chain.name}`);
+                    const chain = CHAINS[priceFeed.chain as TChainName];
+                    const feedAddress: string = await getEmmetAddress(priceFeed.name, chain.name as TChainName);
+                    console.log("feedAddress:", feedAddress, priceFeed.name, chain.name)
+                    const contract = new ethers.Contract(
+                        feedAddress,
+                        contractABI,
+                        chain.signer
+                    );
+
+                    const tx = await contract.updateTokenPrice(BigInt(price), Math.round(Math.random() * 6) + 2);
+                    await tx.wait();
+
+                    logToFile(`${token.symbol}, ${price}, ${chain.name}`);
+
+                } catch (error: { message: string } | any) {
+
+                }
+
+
             }
-            await sleep(6000);
+            await sleep(1000);
         }
 
         // Irregular updates
@@ -73,10 +82,8 @@ async function main() {
         await tx.wait();
         logToFile(`$CAVI, ${caviPrice}, sepolia`);
 
-    } catch (error:{message:string}|any) {
-        console.log(error.message)
-        await sleep(6000);
-        main()
+    } catch (error: { message: string } | any) {
+        console.log(error)
     }
 
 
